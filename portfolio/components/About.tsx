@@ -15,7 +15,7 @@ const About = (props: Props) => {
       transition={{ duration: 1.2 }}
     >
       <h3 className="basic">
-        About 1
+        About 2
       </h3>
 
       <div className="h-[80%] max-w-7xl flex flex-col items-center justify-center gap-10">
