@@ -1,5 +1,11 @@
 <template>
-    <NuxtLayout name="v0">
-        hi
-    </NuxtLayout>
+    <!-- <NuxtLayout name="v0">
+    </NuxtLayout> -->
+    <div class="w-screen h-screen text-medium">
+        Redirecting to about page...
+    </div>
 </template>
+
+<script>
+await navigateTo('/about')
+</script>
