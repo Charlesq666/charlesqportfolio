@@ -82,6 +82,7 @@ module.exports = {
             },
             fontFamily: {
                 inter: ["Inter"],
+                kalam: ["Kalam"],
             },
         },
     },

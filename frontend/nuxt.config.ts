@@ -18,8 +18,5 @@ export default defineNuxtConfig({
          * @default "./components/ui"
          */
         componentDir: "./components/ui",
-    },
-    fonts: {
-        families: [{ name: "Inter", provider: "google" }],
-    },
+    }
 });
