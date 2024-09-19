@@ -6,6 +6,6 @@
     </div>
 </template>
 
-<script setup lang='ts'>
-navigateTo('/about');
+<script setup lang="ts">
+navigateTo("/about");
 </script>

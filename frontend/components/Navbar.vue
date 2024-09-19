@@ -1,8 +1,13 @@
 <template>
-    <div class="bg-slate-200">
+    <div class="">
         This is a navbar
-        <Button>
-            click me
-        </Button>
+        <Icon name="i-ion-home" />
+        <UIButton> click me </UIButton>
+        <BlogButton
+            content="content"
+            header="header"
+            :order="1"
+            slug="slug"
+        />
     </div>
 </template>

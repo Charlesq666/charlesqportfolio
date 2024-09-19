@@ -1,4 +1,4 @@
-const animate = require("tailwindcss-animate")
+const animate = require("tailwindcss-animate");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -67,10 +67,10 @@ module.exports = {
                 },
                 "collapsible-down": {
                     from: { height: 0 },
-                    to: { height: 'var(--radix-collapsible-content-height)' },
+                    to: { height: "var(--radix-collapsible-content-height)" },
                 },
                 "collapsible-up": {
-                    from: { height: 'var(--radix-collapsible-content-height)' },
+                    from: { height: "var(--radix-collapsible-content-height)" },
                     to: { height: 0 },
                 },
             },
@@ -82,8 +82,8 @@ module.exports = {
             },
             fontFamily: {
                 inter: ["Inter"],
-            }
+            },
         },
     },
     plugins: [animate],
-}
+};

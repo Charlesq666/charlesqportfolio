@@ -1,8 +1,5 @@
 <template>
-    <NuxtLayout name="v0">
-        This is about page
-    </NuxtLayout>
+    <NuxtLayout name="v0"> This is about page </NuxtLayout>
 </template>
 
-<script>
-</script>
+<script></script>
