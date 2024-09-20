@@ -2,4 +2,4 @@
     <NuxtLayout name="v0"> This is about page </NuxtLayout>
 </template>
 
-<script></script>
+<script setup lang="ts"></script>

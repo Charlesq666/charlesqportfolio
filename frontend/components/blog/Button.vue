@@ -1,7 +1,5 @@
 <template>
-    <UIButton variant="secondary">
-        {{ props.content }} - {{ props.order }}
-    </UIButton>
+    <UIButton variant="secondary"> {{ props.content }} - {{ props.order }} </UIButton>
 </template>
 
 <script setup lang="ts">
