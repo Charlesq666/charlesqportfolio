@@ -6,8 +6,13 @@
             </button>
         </UIDialogTrigger>
 
-        <UIDialogContent>
-            <div>hi</div>
+        <UIDialogContent class="bg-white" @interact-outside="(e) => e.preventDefault()">
+            <NuxtImg src="/wechat.jpg" />
+            <UIDialogFooter>
+                <UIDialogClose as-child>
+                    <UIButton type="button" variant="secondary" class="w-full"> Close </UIButton>
+                </UIDialogClose>
+            </UIDialogFooter>
         </UIDialogContent>
     </UIDialog>
 </template>
