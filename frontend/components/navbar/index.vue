@@ -7,7 +7,9 @@
         </div>
 
         <div class="flex items-center gap-1.5">
-            <NavbarWechatButton />
+            <ClientOnly>
+                <NavbarWechatButton />
+            </ClientOnly>
             <a href="https://github.com/charlesq666" target="_blank">
                 <Icon name="i-ion-logo-github" size="30" />
             </a>
