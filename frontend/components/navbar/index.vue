@@ -6,7 +6,7 @@
             </NuxtLink>
         </div>
 
-        <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-2 text-gray-600">
             <ClientOnly>
                 <NavbarWechatButton />
             </ClientOnly>
