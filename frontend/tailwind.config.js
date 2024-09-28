@@ -84,6 +84,9 @@ module.exports = {
                 inter: ["Inter"],
                 kalam: ["Kalam"],
             },
+            fontSize: {
+                '2xs': ['0.625rem', { lineHeight: '1rem' }],
+            }
         },
     },
     plugins: [animate],
