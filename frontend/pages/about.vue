@@ -39,13 +39,17 @@
 
                         <ul class="list-disc ml-4 leading-3">
                             <li>
-                                <p class="text-2xs">Working on a team of 4 people to build a new AI-powered data science platform.</p>
+                                <p class="text-2xs">
+                                    Working on a team of 4 people to build a new AI-powered data science platform.
+                                </p>
                             </li>
                             <li>
                                 <p class="text-2xs">Developing a new AI-powered data science platform.</p>
                             </li>
                             <li>
-                                <p class="text-2xs">Working on a team of 4 people to build a new AI-powered data science platform.</p>
+                                <p class="text-2xs">
+                                    Working on a team of 4 people to build a new AI-powered data science platform.
+                                </p>
                             </li>
                         </ul>
                     </div>
@@ -60,7 +64,20 @@
 </template>
 
 <script setup lang="ts">
+import { google } from "googleapis";
+
 useHead({
     title: "About",
 });
+
+const API_KEY = "";
+const docId = "";
+
+try {
+    const docs = google.docs({ version: "v1", auth: API_KEY });
+    const res = await docs.documents.get({ documentId: docId });
+    console.log('res is ', res);
+} catch (e) {
+    console.log('error is ', e);
+}
 </script>
