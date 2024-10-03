@@ -131,3 +131,6 @@ dist
 
 nohup.out
 log
+
+# google cloud 
+google-service-acc-key.json
