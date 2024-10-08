@@ -13,7 +13,6 @@ async function main() {
     google.options({auth})
     const docs = google.docs({version: "v1"})
     const res = await docs.documents.get({ documentId: docId })
-
-    console.log(res.data)
+    console.log(JSON.stringify(res.data.body?.content?.at(2)), null, 4)
 }
 main()
