@@ -79,20 +79,20 @@ Outputs:
     HelloWorldApi:
         Description: API Gateway endpoint URL for Hello World function
         Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/api/hello/"
-    HelloWorldFunction:
-        Description: Hello World Lambda Function ARN
-        Value: !GetAtt HelloWorldFunction.Arn
-    HelloWorldFunctionIamRole:
-        Description: Implicit IAM Role created for Hello World function
-        Value: !GetAtt HelloWorldFunctionRole.Arn
+    # HelloWorldFunction:
+    #     Description: Hello World Lambda Function ARN
+    #     Value: !GetAtt HelloWorldFunction.Arn
+    # HelloWorldFunctionIamRole:
+    #     Description: Implicit IAM Role created for Hello World function
+    #     Value: !GetAtt HelloWorldFunctionRole.Arn
 
     # Second functions
     FetchResumeApi:
         Description: API Gateway endpoint URL for Fetch Resume function
         Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/api/resume/"
-    FetchResumeFunction:
-        Description: Fetch Resume Lambda Function ARN
-        Value: !GetAtt FetchResumeFunction.Arn
-    FetchResumeFunctionIamRole:
-        Description: Implicit IAM Role created for Fetch Resume function
-        Value: !GetAtt FetchResumeFunctionRole.Arn
+    # FetchResumeFunction:
+    #     Description: Fetch Resume Lambda Function ARN
+    #     Value: !GetAtt FetchResumeFunction.Arn
+    # FetchResumeFunctionIamRole:
+    #     Description: Implicit IAM Role created for Fetch Resume function
+    #     Value: !GetAtt FetchResumeFunctionRole.Arn
