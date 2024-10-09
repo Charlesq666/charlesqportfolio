@@ -38,18 +38,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       
-      - name: Test Variables
-        run: |
-          echo ${{ secrets.AWS_ACCESS_KEY_ID }}
-          echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          echo ${{ secrets.AWS_DEFAULT_REGION }}
-
       # Build SAM application (compiles TypeScript to JavaScript)
-    #   - name: Build the SAM Application
-    #     run: sam build
+      - name: Build the SAM Application
+        run: sam build
 
-    #   # Deploy the SAM application
-    #   - name: Deploy the SAM Application
-    #     run: |
-    #       sam deploy --no-confirm-changeset --no-fail-on-empty-changeset \
-    #         --stack-name my-sam-app --capabilities CAPABILITY_IAM
+      # Deploy the SAM application
+      - name: Deploy the SAM Application
+        run: |
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset \
+            --stack-name web-apis --capabilities CAPABILITY_IAM
