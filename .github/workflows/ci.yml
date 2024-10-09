@@ -23,6 +23,7 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
+        working-directory: lambdas
         run: npm install
 
       # Install AWS SAM CLI
@@ -40,10 +41,12 @@ jobs:
       
       # Build SAM application (compiles TypeScript to JavaScript)
       - name: Build the SAM Application
+        working-directory: lambdas
         run: sam build
 
       # Deploy the SAM application
       - name: Deploy the SAM Application
+        working-directory: lambdas
         run: |
           sam deploy --no-confirm-changeset --no-fail-on-empty-changeset \
             --stack-name web-apis --capabilities CAPABILITY_IAM
