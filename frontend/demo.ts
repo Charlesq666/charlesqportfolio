@@ -4,7 +4,7 @@ async function main() {
     // const res = await fetch(url)
     // const text = await res.text
     // console.log(text)
-    const docId = ""
+    const docId = "1KXfqxuHYdHizLvtB-M1cDamy84M5iNsjcAsQRKV0IVE"
     const auth = new google.auth.GoogleAuth({
         keyFile: "./google-service-acc-key.json",
         scopes: ["https://www.googleapis.com/auth/documents.readonly"],

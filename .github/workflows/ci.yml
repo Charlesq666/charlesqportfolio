@@ -1,0 +1,55 @@
+name: Deploy Lambda using SAM
+
+on:
+  push:
+    branches:
+      - v2
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: aws-deploy-ci
+    
+    steps:
+      # Checkout the latest code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js environment for TypeScript build
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Install AWS SAM CLI
+      - name: Install AWS SAM CLI
+        run: |
+          sudo pip install aws-sam-cli
+
+      # Set up AWS credentials using secrets
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+      
+      - name: Test Variables
+        run: |
+          echo ${{ secrets.AWS_ACCESS_KEY_ID }}
+          echo ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          echo ${{ secrets.AWS_DEFAULT_REGION }}
+
+      # Build SAM application (compiles TypeScript to JavaScript)
+    #   - name: Build the SAM Application
+    #     run: sam build
+
+    #   # Deploy the SAM application
+    #   - name: Deploy the SAM Application
+    #     run: |
+    #       sam deploy --no-confirm-changeset --no-fail-on-empty-changeset \
+    #         --stack-name my-sam-app --capabilities CAPABILITY_IAM
