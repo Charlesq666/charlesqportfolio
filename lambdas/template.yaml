@@ -17,8 +17,8 @@ Resources:
     HelloWorldFunction:
         Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
         Properties:
-            CodeUri: hello-world/
-            Handler: app.lambdaHandler
+            CodeUri: src/
+            Handler: hello-world.lambdaHandler
             Runtime: nodejs20.x
             Architectures:
                 - x86_64
@@ -35,7 +35,29 @@ Resources:
                 Target: es2020
                 Sourcemap: true
                 EntryPoints:
-                    - app.ts
+                    - hello-world.ts
+    FetchResumeFunction:
+        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Properties:
+            CodeUri: src/
+            Handler: fetch-resume.lambdaHandler
+            Runtime: nodejs20.x
+            Architectures:
+                - x86_64
+            Events:
+                FetchResume:
+                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+                    Properties:
+                        Path: /resume
+                        Method: get
+        Metadata: # Manage esbuild properties
+            BuildMethod: esbuild
+            BuildProperties:
+                Minify: true
+                Target: es2020
+                Sourcemap: true
+                EntryPoints:
+                    - fetch-resume.ts
 
     ApplicationResourceGroup:
         Type: AWS::ResourceGroups::Group
@@ -55,11 +77,22 @@ Outputs:
     # Find out more about other implicit resources you can reference within SAM
     # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
     HelloWorldApi:
-        Description: API Gateway endpoint URL for Prod stage for Hello World function
-        Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+        Description: API Gateway endpoint URL for Hello World function
+        Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/api/hello/"
     HelloWorldFunction:
         Description: Hello World Lambda Function ARN
         Value: !GetAtt HelloWorldFunction.Arn
     HelloWorldFunctionIamRole:
         Description: Implicit IAM Role created for Hello World function
         Value: !GetAtt HelloWorldFunctionRole.Arn
+
+    # Second functions
+    FetchResumeApi:
+        Description: API Gateway endpoint URL for Fetch Resume function
+        Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/api/resume/"
+    FetchResumeFunction:
+        Description: Fetch Resume Lambda Function ARN
+        Value: !GetAtt FetchResumeFunction.Arn
+    FetchResumeFunctionIamRole:
+        Description: Implicit IAM Role created for Fetch Resume function
+        Value: !GetAtt FetchResumeFunctionRole.Arn
