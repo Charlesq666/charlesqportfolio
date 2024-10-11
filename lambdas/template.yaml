@@ -15,7 +15,7 @@ Parameters:
 
 Globals:
     Function:
-        Timeout: 3
+        Timeout: 10
         LoggingConfig:
             LogFormat: JSON
 Resources:
@@ -47,6 +47,7 @@ Resources:
             CodeUri: src/
             Handler: fetch-resume.lambdaHandler
             Runtime: nodejs20.x
+            MemorySize: 256
             Architectures:
                 - x86_64
             Events:
