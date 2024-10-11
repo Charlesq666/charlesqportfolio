@@ -3,19 +3,20 @@ Transform: AWS::Serverless-2016-10-31
 Description: >
     web-apis
 
-    
+Parameters:
+    GoogleServiceAccKey:
+        Type: AWS::SSM::Parameter::Value<String>
+        Default: /google-service-key
+        Description: Google Service Account Key Name
 
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
     Function:
         Timeout: 3
-
-        # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
         LoggingConfig:
             LogFormat: JSON
 Resources:
     HelloWorldFunction:
-        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Type: AWS::Serverless::Function 
         Properties:
             CodeUri: src/
             Handler: hello-world.lambdaHandler
@@ -24,11 +25,11 @@ Resources:
                 - x86_64
             Events:
                 HelloWorld:
-                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+                    Type: Api
                     Properties:
                         Path: /hello
                         Method: get
-        Metadata: # Manage esbuild properties
+        Metadata:
             BuildMethod: esbuild
             BuildProperties:
                 Minify: true
@@ -37,7 +38,7 @@ Resources:
                 EntryPoints:
                     - hello-world.ts
     FetchResumeFunction:
-        Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+        Type: AWS::Serverless::Function
         Properties:
             CodeUri: src/
             Handler: fetch-resume.lambdaHandler
@@ -46,11 +47,17 @@ Resources:
                 - x86_64
             Events:
                 FetchResume:
-                    Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+                    Type: Api
                     Properties:
                         Path: /resume
                         Method: get
-        Metadata: # Manage esbuild properties
+            Policies:
+                - SSMParameterReadPolicy:
+                    ParameterName: "*"
+            Environment:
+                Variables:
+                    GOOGLE_SERVICE_KEY: !Ref GoogleServiceAccKey
+        Metadata:
             BuildMethod: esbuild
             BuildProperties:
                 Minify: true
@@ -58,7 +65,6 @@ Resources:
                 Sourcemap: true
                 EntryPoints:
                     - fetch-resume.ts
-
     ApplicationResourceGroup:
         Type: AWS::ResourceGroups::Group
         Properties:
@@ -73,26 +79,9 @@ Resources:
                 Ref: ApplicationResourceGroup
             AutoConfigurationEnabled: "true"
 Outputs:
-    # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-    # Find out more about other implicit resources you can reference within SAM
-    # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
     HelloWorldApi:
         Description: API Gateway endpoint URL for Hello World function
         Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/api/hello/"
-    # HelloWorldFunction:
-    #     Description: Hello World Lambda Function ARN
-    #     Value: !GetAtt HelloWorldFunction.Arn
-    # HelloWorldFunctionIamRole:
-    #     Description: Implicit IAM Role created for Hello World function
-    #     Value: !GetAtt HelloWorldFunctionRole.Arn
-
-    # Second functions
     FetchResumeApi:
         Description: API Gateway endpoint URL for Fetch Resume function
         Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/api/resume/"
-    # FetchResumeFunction:
-    #     Description: Fetch Resume Lambda Function ARN
-    #     Value: !GetAtt FetchResumeFunction.Arn
-    # FetchResumeFunctionIamRole:
-    #     Description: Implicit IAM Role created for Fetch Resume function
-    #     Value: !GetAtt FetchResumeFunctionRole.Arn

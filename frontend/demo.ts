@@ -1,12 +1,27 @@
+import { GetSecretValueCommand, SecretsManagerClient } from "@aws-sdk/client-secrets-manager"
+import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm"
 import { google } from "googleapis"
 
 async function main() {
     // const res = await fetch(url)
     // const text = await res.text
     // console.log(text)
+    const secretsClient = new SecretsManagerClient({ region: "us-east-1" })
+    const ssmClient = new SSMClient({ region: "us-east-1" })
+    const parameter = await ssmClient.send(new GetParameterCommand({ Name: "google-service-key" }))
+    console.log(`parameter is ${parameter.Parameter?.Value}`)
+
+    // const googleServiceAccKey = await secretsClient.send(
+    //     new GetSecretValueCommand({ SecretId: "google-service-key" }))
+    const googleServiceAccKey = parameter.Parameter?.Value as string
+    
+    // if (!googleServiceAccKey.SecretString) {
+    //     throw new Error("Google service account key not found")
+    // }
     const docId = "1KXfqxuHYdHizLvtB-M1cDamy84M5iNsjcAsQRKV0IVE"
     const auth = new google.auth.GoogleAuth({
-        keyFile: "./google-service-acc-key.json",
+        // keyFile: "./google-service-acc-key.json",
+        credentials: JSON.parse(googleServiceAccKey),
         scopes: ["https://www.googleapis.com/auth/documents.readonly"],
     })
     console.log(`Authenticated as: ${auth}`)
