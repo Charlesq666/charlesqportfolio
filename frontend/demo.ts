@@ -18,9 +18,7 @@ async function main() {
     // if (!googleServiceAccKey.SecretString) {
     //     throw new Error("Google service account key not found")
     // }
-    const docId = "1KXfqxuHYdHizLvtB-M1cDamy84M5iNsjcAsQRKV0IVE"
     const auth = new google.auth.GoogleAuth({
-        // keyFile: "./google-service-acc-key.json",
         credentials: JSON.parse(googleServiceAccKey),
         scopes: ["https://www.googleapis.com/auth/documents.readonly"],
     })
