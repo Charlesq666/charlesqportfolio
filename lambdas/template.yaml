@@ -4,13 +4,13 @@ Description: >
     web-apis
 
 Parameters:
-    GoogleServiceAccKey:
-        Type: AWS::SSM::Parameter::Value<String>
-        Default: /google-service-key
+    GoogleServiceParamName:
+        Type: String
+        Default: /personal-web/google-service-key
         Description: Google Service Account Key Name
     ResumeDocId:
         Type: AWS::SSM::Parameter::Value<String>
-        Default: /resume-doc-id
+        Default: /personal-web/resume-doc-id
         Description: Google Doc Id for Resume
 
 Globals:
@@ -61,7 +61,7 @@ Resources:
                     ParameterName: "*"
             Environment:
                 Variables:
-                    GOOGLE_SERVICE_KEY: !Ref GoogleServiceAccKey
+                    GOOGLE_SERVICE_PARAM_NAME: !Ref GoogleServiceParamName
                     RESUME_DOC_ID: !Ref ResumeDocId
         Metadata:
             BuildMethod: esbuild

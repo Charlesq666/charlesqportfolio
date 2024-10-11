@@ -1,9 +1,18 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { SSMClient, GetParameterCommand } from "@aws-sdk/client-ssm"
 import { google } from "googleapis"
 
 export const lambdaHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
-        const googleServiceAccKey = process.env.GOOGLE_SERVICE_KEY
+        const googleServiceParamName = process.env.GOOGLE_SERVICE_PARAM_NAME
+        const ssmClient = new SSMClient({ region: "us-east-1" })
+        const parameter = await ssmClient.send(
+            new GetParameterCommand({ 
+                Name: googleServiceParamName, 
+                WithDecryption: true 
+            })
+        )
+        const googleServiceAccKey = parameter.Parameter?.Value as string
         const docId = process.env.RESUME_DOC_ID
         if (!googleServiceAccKey || !docId) {
             throw new Error("Google service account key or doc id not found")

@@ -8,7 +8,7 @@ async function main() {
     // console.log(text)
     const secretsClient = new SecretsManagerClient({ region: "us-east-1" })
     const ssmClient = new SSMClient({ region: "us-east-1" })
-    const parameter = await ssmClient.send(new GetParameterCommand({ Name: "google-service-key" }))
+    const parameter = await ssmClient.send(new GetParameterCommand({ Name: "/personal-web/google-service-key", WithDecryption: true }))
     console.log(`parameter is ${parameter.Parameter?.Value}`)
 
     // const googleServiceAccKey = await secretsClient.send(
