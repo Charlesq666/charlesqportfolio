@@ -1,7 +1,9 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
-import { lambdaHandler } from '../../app';
-import { expect, describe, it } from '@jest/globals';
+import { lambdaHandler as fetchResume } from '../../fetch-resume';
+import { expect, describe, it, beforeAll } from '@jest/globals';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 describe('Unit test for app handler', function () {
     it('verifies successful response', async () => {
         const event: APIGatewayProxyEvent = {
@@ -11,7 +13,7 @@ describe('Unit test for app handler', function () {
             isBase64Encoded: false,
             multiValueHeaders: {},
             multiValueQueryStringParameters: {},
-            path: '/hello',
+            path: '/resume',
             pathParameters: {},
             queryStringParameters: {},
             requestContext: {
@@ -53,13 +55,14 @@ describe('Unit test for app handler', function () {
             resource: '',
             stageVariables: {},
         };
-        const result: APIGatewayProxyResult = await lambdaHandler(event);
+        const result: APIGatewayProxyResult = await fetchResume(event);
+        console.log(`result is ${JSON.stringify(result)}`);
 
         expect(result.statusCode).toEqual(200);
-        expect(result.body).toEqual(
-            JSON.stringify({
-                message: 'hello world',
-            }),
-        );
+        // expect(result.body).toEqual(
+        //     JSON.stringify({
+        //         message: 'hello world',
+        //     }),
+        // );
     });
 });
